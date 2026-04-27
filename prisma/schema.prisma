@@ -1,0 +1,226 @@
+// Mutfak Yazılım - Prisma Schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// İşletme Modeli (Multi-tenant)
+model Business {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  email           String   @unique
+  phone           String?
+  address         String?
+  logo            String?
+  website         String?
+  subdomain       String?  @unique
+  plan            Plan     @default(STARTER)
+  isActive        Boolean  @default(true)
+  settings        Json     @default("{}")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  users           User[]
+  qrCodes         QRCode[]
+  reviews         Review[]
+  tables          Table[]
+  integrations    PlatformIntegration[]
+  subscriptions   Subscription[]
+
+  @@map("businesses")
+}
+
+// Kullanıcı Modeli
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String
+  password    String
+  role        UserRole @default(MANAGER)
+  avatar      String?
+  isActive    Boolean  @default(true)
+  lastLoginAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  
+  @@map("users")
+}
+
+// QR Kod Modeli
+model QRCode {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String?  // "Masa 1", "Kurye Ali" vb.
+  type        QRType   @default(TABLE)
+  isActive    Boolean  @default(true)
+  metadata    Json     @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  tableId     String?
+  table       Table?   @relation(fields: [tableId], references: [id])
+  reviews     Review[]
+
+  @@map("qr_codes")
+}
+
+// Masa/Konum Modeli
+model Table {
+  id          String   @id @default(cuid())
+  name        String   // "Masa 1", "Balkon A2" vb.
+  x           Float?   // X koordinatı (layout için)
+  y           Float?   // Y koordinatı (layout için)
+  capacity    Int?
+  section     String?  // "Salon", "Terras" vb.
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  qrCodes     QRCode[]
+  reviews     Review[]
+
+  @@map("tables")
+}
+
+// Yorum/Geri Bildirim Modeli
+model Review {
+  id              String        @id @default(cuid())
+  rating          Int?          // 1-5 yıldız (null ise sadece metin)
+  comment         String?
+  customerName    String?
+  customerEmail   String?
+  customerPhone   String?
+  source          ReviewSource  @default(QR_FORM)
+  status          ReviewStatus  @default(PENDING)
+  sentiment       Sentiment?    // AI analizi
+  category        String?       // "Servis", "Yemek", "Temizlik" vb.
+  isPublic        Boolean       @default(false)
+  responseText    String?       // İşletme yanıtı
+  responseAt      DateTime?
+  metadata        Json          @default("{}")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  // Relations
+  businessId      String
+  business        Business      @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  qrCodeId        String?
+  qrCode          QRCode?       @relation(fields: [qrCodeId], references: [id])
+  tableId         String?
+  table           Table?        @relation(fields: [tableId], references: [id])
+
+  @@map("reviews")
+}
+
+// Platform Entegrasyon Modeli
+model PlatformIntegration {
+  id          String            @id @default(cuid())
+  platform    Platform
+  url         String?           // Google Maps link, Yemeksepeti sayfa URL'i vb.
+  isActive    Boolean           @default(true)
+  settings    Json              @default("{}")
+  lastSyncAt  DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // Relations
+  businessId  String
+  business    Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("platform_integrations")
+}
+
+// Abonelik Modeli
+model Subscription {
+  id              String            @id @default(cuid())
+  plan            Plan
+  status          SubscriptionStatus @default(ACTIVE)
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  cancelAtPeriodEnd  Boolean       @default(false)
+  stripeSubscriptionId String?
+  iyzicoPlanReference  String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  // Relations
+  businessId      String
+  business        Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+// Enum Tanımları
+enum Plan {
+  STARTER
+  PROFESSIONAL
+  ENTERPRISE
+}
+
+enum UserRole {
+  OWNER
+  MANAGER
+  STAFF
+}
+
+enum QRType {
+  TABLE
+  TAKEAWAY
+  DELIVERY
+  GENERAL
+}
+
+enum ReviewSource {
+  QR_FORM
+  GOOGLE_MAPS
+  YEMEKSEPETI
+  GETIR
+  TRIPADVISOR
+  MANUAL
+}
+
+enum ReviewStatus {
+  PENDING
+  RESPONDED
+  RESOLVED
+  IGNORED
+}
+
+enum Sentiment {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+}
+
+enum Platform {
+  GOOGLE_MAPS
+  YEMEKSEPETI
+  GETIR
+  TRIPADVISOR
+  BOOKING
+  SWIGGY
+  ZOMATO
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  UNPAID
+} 

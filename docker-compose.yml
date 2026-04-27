@@ -1,0 +1,82 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: mutfak-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mutfak_yazilim
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - mutfak-network
+
+  # Redis for Job Queues
+  redis:
+    image: redis:7-alpine
+    container_name: mutfak-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - mutfak-network
+
+  # Mutfak Yazılım Frontend/Backend
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: mutfak-app
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/mutfak_yazilim?schema=public
+      - REDIS_URL=redis://redis:6379
+      - NEXTAUTH_URL=http://localhost:3003
+      - NEXTAUTH_SECRET=your-super-secret-key-change-in-production
+      - PORT=3003
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - mutfak-network
+    command: npm run dev
+
+  # PostgreSQL Admin (pgAdmin) - Development only
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: mutfak-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@mutfakyazilim.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - mutfak-network
+    profiles:
+      - dev
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  mutfak-network:
+    driver: bridge 

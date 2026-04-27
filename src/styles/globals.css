@@ -1,0 +1,627 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    
+    /* Mutfak Yazılım Premium Tasarım Sistemi */
+    --brand-primary: 59 130 246; /* Blue-500 */
+    --brand-secondary: 168 85 247; /* Purple-500 */
+    --brand-accent: 249 115 22; /* Orange-500 */
+    --brand-success: 34 197 94; /* Green-500 */
+    --brand-warning: 234 179 8; /* Yellow-500 */
+    --brand-error: 239 68 68; /* Red-500 */
+    
+    /* Gölge Sistemi */
+    --shadow-light: 0px 2px 4px rgba(44, 62, 80, 0.04);
+    --shadow-medium: 0px 4px 12px rgba(44, 62, 80, 0.08);
+    --shadow-heavy: 0px 8px 24px rgba(44, 62, 80, 0.12);
+    --shadow-premium: 0px 16px 40px rgba(44, 62, 80, 0.16);
+    
+    /* Kenarlık Sistemi */
+    --border-light: 1px solid rgba(234, 236, 239, 0.6);
+    --border-medium: 1px solid rgba(234, 236, 239, 1);
+    --border-heavy: 2px solid rgba(234, 236, 239, 1);
+    
+    /* Animasyon Süreleri */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-normal: 0.2s ease-in-out;
+    --transition-slow: 0.3s ease-in-out;
+    
+    /* Dashboard Renkleri */
+    --dashboard-bg: 248 250 252; /* Slate-50 */
+    --dashboard-card: 255 255 255; /* White */
+    --dashboard-sidebar: 241 245 249; /* Slate-100 */
+    
+    /* İşletme Paneli Özel Renkleri */
+    --business-primary: 37 99 235; /* Blue-600 */
+    --business-secondary: 147 51 234; /* Purple-600 */
+    --business-accent: 249 115 22; /* Orange-500 */
+    --business-neutral: 100 116 139; /* Slate-500 */
+    
+    /* Durum Renkleri */
+    --status-positive: 34 197 94; /* Green-500 */
+    --status-neutral: 107 114 128; /* Gray-500 */
+    --status-negative: 239 68 68; /* Red-500 */
+    --status-warning: 245 158 11; /* Amber-500 */
+    
+    /* Hover ve Focus Durumları */
+    --hover-overlay: rgba(59, 130, 246, 0.1);
+    --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+    
+    /* Dark Mode Özel Değişkenleri */
+    --shadow-light: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-medium: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-heavy: 0px 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-premium: 0px 16px 40px rgba(0, 0, 0, 0.5);
+    
+    --border-light: 1px solid rgba(55, 65, 81, 0.6);
+    --border-medium: 1px solid rgba(55, 65, 81, 1);
+    --border-heavy: 2px solid rgba(55, 65, 81, 1);
+    
+    --dashboard-bg: 15 23 42; /* Slate-900 */
+    --dashboard-card: 30 41 59; /* Slate-800 */
+    --dashboard-sidebar: 51 65 85; /* Slate-700 */
+    
+    --hover-overlay: rgba(59, 130, 246, 0.15);
+    --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Mutfak Yazılım Premium UI Bileşenleri */
+@layer components {
+  
+  /* Premium Kart Tasarımı */
+  .premium-card {
+    @apply bg-white dark:bg-gray-800 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm;
+    box-shadow: var(--shadow-medium);
+    transition: all var(--transition-normal);
+  }
+  
+  .premium-card:hover {
+    @apply border-blue-200 dark:border-blue-800;
+    box-shadow: var(--shadow-heavy);
+    transform: translateY(-2px);
+  }
+  
+  /* Premium Buton Tasarımı */
+  .btn-premium {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg;
+    @apply hover:shadow-xl hover:scale-105 active:scale-95;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white;
+    @apply hover:from-blue-600 hover:to-blue-700;
+  }
+  
+  .btn-secondary {
+    @apply bg-gradient-to-r from-purple-500 to-purple-600 text-white;
+    @apply hover:from-purple-600 hover:to-purple-700;
+  }
+  
+  .btn-accent {
+    @apply bg-gradient-to-r from-orange-500 to-orange-600 text-white;
+    @apply hover:from-orange-600 hover:to-orange-700;
+  }
+  
+  .btn-success {
+    @apply bg-gradient-to-r from-green-500 to-green-600 text-white;
+    @apply hover:from-green-600 hover:to-green-700;
+  }
+  
+  .btn-ghost {
+    @apply border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300;
+    @apply hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-400 dark:hover:border-gray-500;
+  }
+  
+  /* Premium Form Elementleri */
+  .form-input {
+    @apply px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600;
+    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-white;
+    @apply focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    @apply placeholder:text-gray-500 dark:placeholder:text-gray-400;
+    transition: all var(--transition-normal);
+  }
+  
+  .form-input:focus {
+    box-shadow: var(--focus-ring);
+  }
+  
+  /* Dashboard Özellikleri */
+  .dashboard-header {
+    @apply bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800;
+    @apply px-6 py-4 flex items-center justify-between;
+    backdrop-filter: blur(10px);
+  }
+  
+  .dashboard-sidebar {
+    @apply w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800;
+    @apply flex flex-col fixed left-0 top-0 h-full z-40;
+    backdrop-filter: blur(10px);
+  }
+  
+  .dashboard-content {
+    @apply flex-1 bg-slate-50 dark:bg-gray-800 p-6 ml-64 min-h-screen;
+  }
+  
+  /* Metrik Kartları */
+  .metric-card {
+    @apply premium-card p-6 text-center;
+    @apply hover:shadow-xl hover:scale-105 transition-all duration-300;
+  }
+  
+  .metric-value {
+    @apply text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  .metric-label {
+    @apply text-sm font-medium text-gray-600 dark:text-gray-400 mt-2;
+  }
+  
+  .metric-trend {
+    @apply text-xs font-semibold mt-1;
+  }
+  
+  .metric-trend.positive {
+    @apply text-green-600 dark:text-green-400;
+  }
+  
+  .metric-trend.negative {
+    @apply text-red-600 dark:text-red-400;
+  }
+  
+  /* Skeleton Loader */
+  .skeleton {
+    @apply bg-gray-200 dark:bg-gray-700 rounded animate-pulse;
+  }
+  
+  .skeleton-text {
+    @apply skeleton h-4 mb-2;
+  }
+  
+  .skeleton-title {
+    @apply skeleton h-6 mb-4;
+  }
+  
+  .skeleton-avatar {
+    @apply skeleton w-12 h-12 rounded-full;
+  }
+  
+  /* Yorum Listesi */
+  .comment-item {
+    @apply premium-card p-4 mb-4 cursor-pointer;
+    @apply hover:border-blue-200 dark:hover:border-blue-800;
+  }
+  
+  .comment-item.negative {
+    @apply border-l-4 border-red-500 bg-red-50/50 dark:bg-red-900/20;
+  }
+  
+  .comment-item.positive {
+    @apply border-l-4 border-green-500 bg-green-50/50 dark:bg-green-900/20;
+  }
+  
+  .comment-item.neutral {
+    @apply border-l-4 border-gray-500 bg-gray-50/50 dark:bg-gray-900/20;
+  }
+  
+  /* Toast Bildirimleri */
+  .toast {
+    @apply fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg;
+    @apply flex items-center gap-3 min-w-[300px] max-w-md;
+    animation: slideInFromTop 0.3s ease-out;
+  }
+  
+  .toast.success {
+    @apply bg-green-500 text-white;
+  }
+  
+  .toast.error {
+    @apply bg-red-500 text-white;
+  }
+  
+  .toast.warning {
+    @apply bg-yellow-500 text-white;
+  }
+  
+  .toast.info {
+    @apply bg-blue-500 text-white;
+  }
+  
+  /* Boş Durumlar */
+  .empty-state {
+    @apply text-center py-12 px-6;
+  }
+  
+  .empty-state-icon {
+    @apply w-16 h-16 mx-auto mb-4 text-gray-400 dark:text-gray-600;
+  }
+  
+  .empty-state-title {
+    @apply text-lg font-semibold text-gray-900 dark:text-white mb-2;
+  }
+  
+  .empty-state-description {
+    @apply text-gray-600 dark:text-gray-400 mb-6;
+  }
+  
+  /* Heatmap */
+  .heatmap-container {
+    @apply premium-card p-6 min-h-[400px] relative;
+  }
+  
+  .heatmap-table {
+    @apply w-8 h-8 rounded-lg border-2 border-gray-300 dark:border-gray-600;
+    @apply cursor-pointer transition-all duration-200;
+    @apply hover:scale-110 hover:shadow-lg;
+  }
+  
+  .heatmap-table.good {
+    @apply bg-green-100 border-green-300 dark:bg-green-900/30 dark:border-green-700;
+  }
+  
+  .heatmap-table.neutral {
+    @apply bg-yellow-100 border-yellow-300 dark:bg-yellow-900/30 dark:border-yellow-700;
+  }
+  
+  .heatmap-table.bad {
+    @apply bg-red-100 border-red-300 dark:bg-red-900/30 dark:border-red-700;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .dashboard-sidebar {
+      @apply transform -translate-x-full;
+    }
+    
+    .dashboard-content {
+      @apply ml-0;
+    }
+    
+    .metric-card {
+      @apply p-4;
+    }
+    
+    .metric-value {
+      @apply text-2xl;
+    }
+  }
+}
+
+/* Animasyonlar */
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* Özel Utilityler */
+.section {
+  @apply py-16 md:py-24 lg:py-32;
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent;
+}
+
+.glass-morphism {
+  @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/20 dark:border-gray-800/20;
+}
+
+.premium-shadow {
+  box-shadow: var(--shadow-premium);
+}
+
+.premium-border {
+  border: var(--border-light);
+}
+
+.premium-transition {
+  transition: all var(--transition-normal);
+}
+
+/* QR Kod Sayfası Mobil Optimizasyonu */
+.qr-page {
+  @apply min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800;
+  @apply flex items-center justify-center p-4;
+}
+
+.qr-card {
+  @apply premium-card p-8 max-w-md w-full text-center;
+  @apply animate-in slide-in-from-bottom duration-300;
+}
+
+.qr-logo {
+  @apply w-16 h-16 mx-auto mb-6 rounded-xl shadow-lg;
+}
+
+.qr-question {
+  @apply text-xl font-bold text-gray-900 dark:text-white mb-8;
+}
+
+.qr-option {
+  @apply w-full p-6 mb-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700;
+  @apply hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20;
+  @apply transition-all duration-200 cursor-pointer;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.qr-option.positive {
+  @apply border-green-500 bg-green-50 dark:bg-green-900/20;
+  @apply hover:border-green-600 hover:bg-green-100 dark:hover:bg-green-900/30;
+}
+
+.qr-option.negative {
+  @apply border-red-500 bg-red-50 dark:bg-red-900/20;
+  @apply hover:border-red-600 hover:bg-red-100 dark:hover:bg-red-900/30;
+}
+
+.qr-option-icon {
+  @apply text-4xl mb-2;
+}
+
+.qr-option-text {
+  @apply text-lg font-semibold text-gray-900 dark:text-white;
+}
+
+/* İşletme Paneli Özel Sınıfları */
+.business-panel {
+  @apply min-h-screen bg-slate-50 dark:bg-gray-900;
+}
+
+.business-header {
+  @apply bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800;
+  @apply px-6 py-4 flex items-center justify-between shadow-sm;
+}
+
+.business-nav {
+  @apply flex space-x-8;
+}
+
+.business-nav-item {
+  @apply px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300;
+  @apply hover:text-blue-600 dark:hover:text-blue-400;
+  @apply border-b-2 border-transparent hover:border-blue-500;
+  @apply transition-all duration-200;
+}
+
+.business-nav-item.active {
+  @apply text-blue-600 dark:text-blue-400 border-blue-500;
+}
+
+.business-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+}
+
+.business-metric {
+  @apply premium-card p-6 text-center;
+  @apply hover:shadow-xl hover:scale-105 transition-all duration-300;
+}
+
+.business-chart {
+  @apply premium-card p-6 h-96;
+}
+
+.business-table {
+  @apply premium-card overflow-hidden;
+}
+
+.business-table-header {
+  @apply bg-gray-50 dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700;
+}
+
+.business-table-row {
+  @apply px-6 py-4 border-b border-gray-200 dark:border-gray-700;
+  @apply hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors;
+}
+
+.business-alert {
+  @apply p-4 rounded-lg border-l-4 mb-4;
+}
+
+.business-alert.success {
+  @apply bg-green-50 border-green-500 text-green-800 dark:bg-green-900/20 dark:text-green-400;
+}
+
+.business-alert.warning {
+  @apply bg-yellow-50 border-yellow-500 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400;
+}
+
+.business-alert.error {
+  @apply bg-red-50 border-red-500 text-red-800 dark:bg-red-900/20 dark:text-red-400;
+}
+
+.business-alert.info {
+  @apply bg-blue-50 border-blue-500 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400;
+}
+
+/* Drag & Drop Desteği */
+.drag-item {
+  @apply cursor-move select-none;
+  @apply hover:shadow-lg transition-shadow duration-200;
+}
+
+.drag-item.dragging {
+  @apply opacity-50 scale-105;
+}
+
+.drop-zone {
+  @apply border-2 border-dashed border-gray-300 dark:border-gray-600;
+  @apply hover:border-blue-500 dark:hover:border-blue-400 transition-colors;
+}
+
+.drop-zone.active {
+  @apply border-blue-500 bg-blue-50 dark:bg-blue-900/20;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    @apply hidden;
+  }
+  
+  .print-only {
+    @apply block;
+  }
+  
+  .premium-card {
+    @apply shadow-none border border-gray-300;
+  }
+}
+
+/* QR Code Styles */
+.qr-image {
+  @apply w-full h-full object-contain rounded-lg;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.qr-preview-image {
+  @apply w-24 h-24 object-contain rounded-lg;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.qr-code-preview {
+  @apply w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden;
+  transition: all var(--transition-normal);
+}
+
+.qr-code-preview:hover {
+  @apply scale-105;
+}
+
+.qr-preview {
+  @apply w-32 h-32 rounded-xl flex items-center justify-center overflow-hidden;
+  transition: all var(--transition-normal);
+}
+
+.qr-icon {
+  @apply w-12 h-12;
+}
+
+.qr-preview-icon {
+  @apply w-16 h-16;
+} 
