@@ -19,6 +19,10 @@ Mutfak Software is a full-stack SaaS product for restaurants and hospitality tea
 
 The app combines customer-facing feedback flows, business dashboards, AI-assisted review analysis, payment integrations, and communication tools in a tenant-aware Next.js application.
 
+## Project Status
+
+Portfolio snapshot of a restaurant-focused SaaS product. The public repository documents the core product direction and technical architecture; ongoing commercial or customer-specific work may remain private for confidentiality.
+
 ## Features
 
 - **QR feedback journeys** - Table or venue-specific QR codes for quick customer feedback
